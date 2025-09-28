@@ -49,7 +49,10 @@ import com.example.dashboardcompose.component.FeatureCard
 import com.example.dashboardcompose.component.UpcomingScheduleCard
 import com.example.dashboardcompose.component.WeekDay
 import com.example.dashboardcompose.component.WeekDaySelector
+import com.example.dashboardcompose.component.firasans_medium
 import com.example.dashboardcompose.ui.theme.bgColor
+import com.example.dashboardcompose.ui.theme.cardGreen
+import com.example.dashboardcompose.ui.theme.cardGrey
 import com.example.dashboardcompose.ui.theme.grey
 import com.example.dashboardcompose.ui.theme.iconBlue
 import com.example.dashboardcompose.ui.theme.iconGreen
@@ -57,14 +60,13 @@ import com.example.dashboardcompose.ui.theme.iconPurple
 import com.example.dashboardcompose.ui.theme.profileBg
 import com.example.dashboardcompose.ui.theme.whiteColor
 
-//@Preview
 @Composable
 fun HomeScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = bgColor)
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 16.dp)
     ) {
         Row(
             modifier = Modifier
@@ -83,8 +85,9 @@ fun HomeScreen() {
                     painter = painterResource(id = R.drawable.bill_gates),
                     contentDescription = "Doctor",
                     modifier = Modifier
-                        .size(48.dp)
+                        .size(56.dp)
                         .clip(CircleShape)
+                        .background(profileBg)
                 )
             }
 
@@ -95,18 +98,19 @@ fun HomeScreen() {
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Default.Notifications,
+                    painter = painterResource(id = R.drawable.bell),
                     contentDescription = "Notifications",
-                    tint = Color.Black
+                    tint = Color.Black,
+                    modifier = Modifier
+                        .size(20.dp)
                 )
             }
         }
 
-
         Spacer(modifier = Modifier.height(16.dp))
 
         SearchBar(
-            hint = "Search here...",
+            hint = "Search by doctor's name",
             onSearch = { query ->
                 println("Searching for: $query")
             }
@@ -135,12 +139,26 @@ fun HomeScreen() {
             }
 
             item {
+
+                Row(modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ){
                 Text(
                     text = "Upcoming Schedule",
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
+
+                    Text(
+                        text = "See All",
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = grey,
+                        fontFamily = firasans_medium
+                    )
+                }
             }
 
             item {
@@ -148,7 +166,8 @@ fun HomeScreen() {
                     doctorName = "Dr. Lailas Russell",
                     specialty = "Dermatologist Specialist",
                     imageRes = R.drawable.dr,
-                    dateTime = "20 September – 12:30 – 10:30 PM"
+                    dateTime = "20 September – 12:30 – 10:30 PM",
+                    phoneNumber = "7589837494"
                 )
             }
 
@@ -157,7 +176,8 @@ fun HomeScreen() {
                     doctorName = "Dr. Cries Jacks",
                     specialty = "Cardiology Specialist",
                     imageRes = R.drawable.lady_dr,
-                    dateTime = "21 September – 09:00 – 05:00 PM"
+                    dateTime = "21 September – 09:00 – 05:00 PM",
+                    phoneNumber = "7589837494"
                 )
             }
         }
@@ -254,7 +274,7 @@ fun AppointmentScreen() {
                         specialty = "Dentist Specialist",
                         rating = 4.8,
                         backgroundColor = Color(0xFFFFEBEE),
-                        imageRes = R.drawable.lady_dr
+                        imageRes = R.drawable.dr
                     )
                 }
                 item {
@@ -262,8 +282,8 @@ fun AppointmentScreen() {
                         name = "Bessie Cooper",
                         specialty = "Surgery Specialist",
                         rating = 4.6,
-                        backgroundColor = Color(0xFFE3F2FD),
-                        imageRes = R.drawable.dr
+                        backgroundColor = cardGrey,
+                        imageRes = R.drawable.lady_dr
                     )
                 }
                 item {
@@ -271,8 +291,8 @@ fun AppointmentScreen() {
                         name = "Annette Black",
                         specialty = "Urology Specialist",
                         rating = 4.2,
-                        backgroundColor = Color(0xFFE8F5E9),
-                        imageRes = R.drawable.lady_dr
+                        backgroundColor = cardGreen,
+                        imageRes = R.drawable.dr
                     )
                 }
             }

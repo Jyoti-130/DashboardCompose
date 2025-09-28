@@ -24,8 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.dashboardcompose.R
 import com.example.dashboardcompose.ui.theme.grey
 import com.example.dashboardcompose.ui.theme.whiteColor
 import com.example.dashboardcompose.ui.theme.yellow
@@ -34,22 +36,22 @@ import com.example.dashboardcompose.ui.theme.yellow
 fun CustomBottomBar(navController: NavController){
     var selectedIndex by remember { mutableIntStateOf(0) }
     val items = listOf(
-        Pair("home", Icons.Default.Home),
-        Pair("notifications", Icons.Default.Notifications),
-        Pair("add", Icons.Default.Add),
-        Pair("profile", Icons.Default.Person),
-        Pair("settings", Icons.Default.Settings)
+        Triple("home", Icons.Default.Home, true),
+        Triple("email", R.drawable.email, false),
+        Triple("add", Icons.Default.Add, true),
+        Triple("report", R.drawable.report, false),
+        Triple("profile", Icons.Default.Person, true)
     )
 
     NavigationBar(
         containerColor = whiteColor,
         contentColor = Color.Gray,
         modifier = Modifier.navigationBarsPadding()
-            .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
     ) {
         items.forEachIndexed { index, item ->
             val route = item.first
             val icon = item.second
+            val isVector = item.third
 
             if (index== 2){
                 Box(
@@ -70,22 +72,41 @@ fun CustomBottomBar(navController: NavController){
                     )
                 }
             } else{
-                Icon(
-                    imageVector = icon,
-                    contentDescription = route,
-                    tint = if (selectedIndex == index) yellow else grey,
-                    modifier = Modifier
-                        .size(28.dp)
-                        .weight(1f)
-                        .clickable {
-                            selectedIndex = index
-                            navController.navigate(route) {
-                                popUpTo(navController.graph.startDestinationId) { saveState = true }
-                                launchSingleTop = true
-                                restoreState = true
+                if (isVector) {
+                    Icon(
+                        imageVector = icon as androidx.compose.ui.graphics.vector.ImageVector,
+                        contentDescription = route,
+                        tint = if (selectedIndex == index) yellow else grey,
+                        modifier = Modifier
+                            .size(26.dp)
+                            .weight(1f)
+                            .clickable {
+                                selectedIndex = index
+                                navController.navigate(route) {
+                                    popUpTo(navController.graph.startDestinationId) { saveState = true }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
                             }
-                        }
-                )
+                    )
+                } else {
+                    Icon(
+                        painter = painterResource(id = icon as Int),
+                        contentDescription = route,
+                        tint = if (selectedIndex == index) yellow else grey,
+                        modifier = Modifier
+                            .size(20.dp)
+                            .weight(1f)
+                            .clickable {
+                                selectedIndex = index
+                                navController.navigate(route) {
+                                    popUpTo(navController.graph.startDestinationId) { saveState = true }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                    )
+                }
             }
         }
     }

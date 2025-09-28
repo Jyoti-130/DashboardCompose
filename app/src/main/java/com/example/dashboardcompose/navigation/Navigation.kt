@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.dashboardcompose.screen.DummyScreen
 import com.example.dashboardcompose.screen.HomeScreen
 import com.example.dashboardcompose.ui.theme.bgColor
 
@@ -32,24 +33,12 @@ fun Navigation(){
                 composable("home") {
                     HomeScreen()
                 }
-                composable("notifications") { ScreenContent("Notifications Screen") }
-                composable("add") { ScreenContent("Add Screen") }
-                composable("profile") { ScreenContent("Profile Screen") }
-                composable("settings") { ScreenContent("Settings Screen") }
+            composable("email") {DummyScreen() }
+            composable("add") {DummyScreen() }
+            composable("report") { DummyScreen()}
+            composable("profile") { DummyScreen()}
 
         }
 
-    }
-}
-
-@Composable
-fun ScreenContent(text: String) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF5F5F5)),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text, style = MaterialTheme.typography.headlineMedium)
     }
 }

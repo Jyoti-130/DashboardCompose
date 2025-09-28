@@ -43,7 +43,7 @@ fun WeekDaySelector(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 4.dp),
+            .padding(horizontal = 2.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -51,7 +51,7 @@ fun WeekDaySelector(
             val isSelected = index == selectedIndex
             Card(
                 modifier = Modifier
-                    .width(if (isSelected) 44.dp else 40.dp)
+                    .width(if (isSelected) 40.dp else 36.dp)
                     .height(if (isSelected) 86.dp else 80.dp)
                     .clickable { onDaySelected(index) },
                 shape = RoundedCornerShape(20.dp),

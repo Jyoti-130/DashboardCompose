@@ -39,7 +39,6 @@ import com.example.dashboardcompose.ui.theme.lightPink
 import com.example.dashboardcompose.ui.theme.whiteColor
 import com.example.dashboardcompose.ui.theme.yellow
 
-//@Preview
 @Composable
 fun DoctorCard(
     name: String,
@@ -101,7 +100,7 @@ fun DoctorCard(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         color = blackLight,
-//                        fontFamily = firasans_bold
+                        fontFamily = firasans_bold
                     )
                 }
 
@@ -114,7 +113,7 @@ fun DoctorCard(
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.Bold,
                     fontSize = 13.sp,
-//                    fontFamily = firasans_bold,
+                    fontFamily = firasans_bold,
                     color = blackLight
                 )
             )
@@ -124,7 +123,7 @@ fun DoctorCard(
                 style = TextStyle(
                     color = grey,
                     fontSize = 11.sp,
-//                    fontFamily = firasans_medium
+                    fontFamily = firasans_medium
                 )
             )
         }

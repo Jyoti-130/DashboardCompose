@@ -40,8 +40,8 @@ fun FeatureCard(
 ) {
     Card(
         modifier = modifier
-            .width(160.dp)
-            .height(60.dp),
+            .width(150.dp)
+            .height(52.dp),
         shape = RoundedCornerShape(26.dp),
         colors = CardDefaults.cardColors(containerColor = whiteColor),
         elevation = CardDefaults.cardElevation(4.dp)
@@ -75,8 +75,11 @@ fun FeatureCard(
                 text = title,
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontSize = 13.sp,
-                    color = blackLight
+                    color = blackLight,
+                    fontFamily = firasans_medium
                 ),
+                modifier = Modifier
+                    .padding(start = 8.dp),
                 textAlign = TextAlign.Center
             )
         }

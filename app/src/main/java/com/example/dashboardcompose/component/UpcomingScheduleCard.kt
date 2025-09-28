@@ -1,7 +1,9 @@
 package com.example.dashboardcompose.component
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,14 +20,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import com.example.dashboardcompose.R
 import com.example.dashboardcompose.ui.theme.blackLight
+import com.example.dashboardcompose.ui.theme.callIconColor
+import com.example.dashboardcompose.ui.theme.dateCardColor
 import com.example.dashboardcompose.ui.theme.grey
+import com.example.dashboardcompose.ui.theme.iconBlue
 import com.example.dashboardcompose.ui.theme.whiteColor
 import com.example.dashboardcompose.ui.theme.yellow
 
@@ -34,8 +41,13 @@ fun UpcomingScheduleCard(
     doctorName: String,
     specialty: String,
     imageRes: Int,
-    dateTime: String
+    dateTime: String,
+    phoneNumber: String
+
 ) {
+
+    val context = LocalContext.current
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -50,7 +62,6 @@ fun UpcomingScheduleCard(
                 .padding(16.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            // Top row (image + text + icons)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -73,15 +84,17 @@ fun UpcomingScheduleCard(
                             text = doctorName,
                             style = MaterialTheme.typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 15.sp,
-                                color = blackLight
+                                fontSize = 14.sp,
+                                color = blackLight,
+                                fontFamily = firasans_medium
                             )
                         )
                         Text(
                             text = specialty,
                             style = MaterialTheme.typography.bodyMedium.copy(
-                                fontSize = 13.sp,
-                                color = grey
+                                fontSize = 12.sp,
+                                color = grey,
+                                fontFamily = firaSans_regular
                             )
                         )
                     }
@@ -92,32 +105,37 @@ fun UpcomingScheduleCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Face,
+                        painter = painterResource(id = R.drawable.messenger),
                         contentDescription = "Chat",
-                        tint = Color(0xFF42A5F5),
+                        tint = iconBlue,
                         modifier = Modifier
                             .size(32.dp)
                             .clip(CircleShape)
-                            .background(Color(0xFFE3F2FD))
+                            .background(dateCardColor)
                             .padding(6.dp)
                     )
 
                     Icon(
-                        imageVector = Icons.Default.Call,
+                        painter = painterResource(id = R.drawable.phone),
                         contentDescription = "Call",
-                        tint = yellow,
+                        tint = whiteColor,
                         modifier = Modifier
                             .size(32.dp)
                             .clip(CircleShape)
-                            .background(Color(0xFFFFF8E1))
-                            .padding(6.dp)
+                            .background(callIconColor)
+                            .padding(9.dp)
+                            .clickable {
+                                val intent = Intent(Intent.ACTION_DIAL).apply {
+                                    data = "tel:$phoneNumber".toUri()
+                                }
+                                context.startActivity(intent)
+                            }
                     )
                 }
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Bottom rounded pill for time
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -134,7 +152,8 @@ fun UpcomingScheduleCard(
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Medium,
                         color = blackLight,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        fontFamily = firaSans_regular
                     )
                 )
             }
